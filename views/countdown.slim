@@ -53,10 +53,10 @@ html
         var secondsDiff = countdownDate - (new Date().getTime());
 
         var timeObjs = [
-          {name: "days", val: 0},
-          {name: "hours", val: 0},
-          {name: "mins", val: 0},
-          {name: "secs", val: 0}
+          {name: "days", val: Math.floor(secondsDiff / (1000 * 60 * 60 * 24)) + 1},
+          {name: "hours", val: Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1},
+          {name: "mins", val: Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60)) + 1},
+          {name: "secs", val: Math.floor((secondsDiff % (1000 * 60)) / 1000) + 1}
         ];
 
         var newDaysVal = 0;
@@ -81,17 +81,8 @@ html
 
         console.log(timeObjs);
 
-        const TIME_MAXIMUMS = {
-          days: 1000,
-          hours: 24,
-          mins: 60,
-          secs: 60
-        };
-
-        function setupAnimation(timeObj) {
-          var max = TIME_MAXIMUMS[timeObj.name];
+        function setupAnimation(timeObj, nextVal) {
           var currentVal = timeObj.val;
-          var nextVal = (currentVal == 0) ? max : currentVal - 1;
           for (var i = 0; i < 2; i++) {
             timeObj.currentSpans[i].textContent = currentVal;
             timeObj.nextSpans[i].textContent = nextVal;
@@ -120,10 +111,10 @@ html
           timeObj.container.classList.remove('changing');
         };
 
-        function update(timeObj) {
+        function update(timeObj, newVal) {
           console.log("Update Call");
           console.log(timeObj);
-          setupAnimation(timeObj);
+          setupAnimation(timeObj, newVal);
           setTimeout(function() {
             executeAnimation(timeObj);
           }, 20);
@@ -146,22 +137,22 @@ html
           secsObj = timeObjs[3];
 
           if (newDaysVal !== daysObj.val) {
+            update(daysObj, newDaysVal);
             daysObj.val = newDaysVal;
-            update(daysObj);
           }
 
           if (newHoursVal !== hoursObj.val) {
+            update(hoursObj, newHoursVal);
             hoursObj.val = newHoursVal;
-            update(hoursObj);
           }
 
           if (newMinsVal !== minsObj.val) {
+            update(minsObj, newMinsVal);
             minsObj.val = newMinsVal;
-            update(minsObj);
           }
 
+          update(secsObj, newSecsVal);
           secsObj.val = newSecsVal;
-          update(secsObj);
 
           if (secondsDiff < 0) {
               clearInterval(x);
