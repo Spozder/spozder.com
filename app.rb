@@ -14,6 +14,17 @@
 
 # [START gae_flex_quickstart]
 require "sinatra"
+require 'sass'
+require 'compass'
+
+configure do
+  Compass.configuration do |config|
+    config.project_path = File.dirname(__FILE__)
+    config.sass_dir = File.join('views', 'stylesheets')
+  end
+
+  set :sass, Compass.sass_engine_options
+end
 
 get "/" do
   "Hello world!"
@@ -21,5 +32,9 @@ end
 
 get "/countdown" do
   slim :countdown
+end
+
+get "/style/:name" do
+  sass :"stylesheets/#{params[:name]}_stylesheet", Compass.sass_engine_options
 end
 # [END gae_flex_quickstart]
