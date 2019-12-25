@@ -7,11 +7,11 @@ $bounce: cubic-bezier(0.375, 1.495, 0.610, 0.780)
 $cardBackground: #202020
 $cardTextColor: #f8f8f8
 
-$cardTextSize: 14vw
+$cardTextSize: 9vw
 
-$height: 20vw
-$width: 15vw
-$margin: 5vw
+$height: 15vw
+$width: 10vw
+$margin: 3vw
 
 $centerLineThickness: 2px
 
@@ -21,21 +21,21 @@ h2
     font-size: $cardTextSize * 0.25
 
 #content
+    top: 50%
+    position: absolute
     width: 100%
+    text-align: center
+    +translateY(-50%)
 
 // Count Container
 .count
     box-shadow: 0 10px 5px -5px rgba(#000, 0.2)
     height: $height
     line-height: $height
-    margin: -($height / 2) 0 0 -($width / 2)
     +perspective(500px)
     text-align: center
     +translateZ(0)
     width: $width
-    //position: absolute
-    //left: 50%
-    top: 50%
     display: inline-block
     margin: 0 $margin
 
