@@ -1,176 +1,179 @@
 doctype html
 html
-  head
-    title Reunion Countdown
-    meta name="author" content="Spencer Pozder"
-    meta charset="utf-8"
-    meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    link rel="icon" type="image/png" href="icons8-home-48.png"
-    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
-    link rel="stylesheet" href="/style/countdown"
-    script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"
-    script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"
-    script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"
+	head
+		title Reunion Countdown
+		meta name="author" content="Spencer Pozder"
+		meta charset="utf-8"
+		meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
+		link rel="icon" type="image/png" href="icons8-home-48.png"
+		link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
+		link rel="stylesheet" href="/style/countdown"
+		script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"
+		script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"
+		script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"
 
 
-  body
-    h1 Reunion Countdown
+	body
+		h1 Reunion Countdown
 
-    #content
-      span id="days-count-div" class="days count down"
-        span id="days-current-top" class="current top"
-        span id="days-next-top" class="next top"
-        span id="days-current-bottom" class="current bottom"
-        span id="days-next-bottom" class="next bottom"
-        br
-        h2 Days
-      span id="hours-count-div" class="hours count down"
-        span id="hours-current-top" class="current top"
-        span id="hours-next-top" class="next top"
-        span id="hours-current-bottom" class="current bottom"
-        span id="hours-next-bottom" class="next bottom"
-        br
-        h2 Hours
-      span id="mins-count-div" class="mins count down"
-        span id="mins-current-top" class="current top"
-        span id="mins-next-top" class="next top"
-        span id="mins-current-bottom" class="current bottom"
-        span id="mins-next-bottom" class="next bottom"
-        br
-        h2 Minutes
-      span id="secs-count-div" class="secs count down"
-        span id="secs-current-top" class="current top"
-        span id="secs-next-top" class="next top"
-        span id="secs-current-bottom" class="current bottom"
-        span id="secs-next-bottom" class="next bottom"
-        br
-        h2 Seconds
-    #orientation
-    
-    javascript:
-     var oElement = document.getElementById("orientation");
-     if (window.innerWidth > window.innerHeight) {
-      oElement.textContent = "Horizontal";
-     } else {
-      oElement.textContent = "Vertical";
-     }
-     
-     window.addEventListener("orientationchange", function() {
-      if (window.orientation === 90) {
-      	oElement.textContent = "Horizontal";
-      } else {
-       oElement.textContent = "Vertical";
-      }
-     }, false);
+		#content
+			span id="days-count-div" class="days count down"
+				span id="days-current-top" class="current top"
+				span id="days-next-top" class="next top"
+				span id="days-current-bottom" class="current bottom"
+				span id="days-next-bottom" class="next bottom"
+				br
+				h2 Days
+			span id="hours-count-div" class="hours count down"
+				span id="hours-current-top" class="current top"
+				span id="hours-next-top" class="next top"
+				span id="hours-current-bottom" class="current bottom"
+				span id="hours-next-bottom" class="next bottom"
+				br
+				h2 Hours
+			span id="mins-count-div" class="mins count down"
+				span id="mins-current-top" class="current top"
+				span id="mins-next-top" class="next top"
+				span id="mins-current-bottom" class="current bottom"
+				span id="mins-next-bottom" class="next bottom"
+				br
+				h2 Minutes
+			span id="secs-count-div" class="secs count down"
+				span id="secs-current-top" class="current top"
+				span id="secs-next-top" class="next top"
+				span id="secs-current-bottom" class="current bottom"
+				span id="secs-next-bottom" class="next bottom"
+				br
+				h2 Seconds
+		#orientation
 
-    javascript:
-        var countdownDate = new Date("#{@countdown_to}").getTime();
+		javascript:
+			console.log()
+		
+		javascript:
+			var oElement = document.getElementById("orientation");
+			if (window.innerWidth > window.innerHeight) {
+				oElement.textContent = "Horizontal";
+			} else {
+				oElement.textContent = "Vertical";
+			}
+			
+			window.addEventListener("orientationchange", function() {
+			if (window.orientation === 90) {
+				oElement.textContent = "Horizontal";
+			} else {
+				oElement.textContent = "Vertical";
+			}
+			}, false);
 
-        var secondsDiff = countdownDate - (new Date().getTime());
+		javascript:
+			var countdownDate = new Date("#{@countdown_to}").getTime();
 
-        var timeObjs = [
-          {name: "days", val: Math.floor(secondsDiff / (1000 * 60 * 60 * 24)) + 1},
-          {name: "hours", val: Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1},
-          {name: "mins", val: Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60)) + 1},
-          {name: "secs", val: Math.floor((secondsDiff % (1000 * 60)) / 1000) + 1}
-        ];
+			var secondsDiff = countdownDate - (new Date().getTime());
 
-        var newDaysVal = 0;
-        var newHoursVal = 0;
-        var newMinsVal = 0;
-        var newSecsVal = 0;
+			var timeObjs = [
+				{name: "days", val: Math.floor(secondsDiff / (1000 * 60 * 60 * 24)) + 1},
+				{name: "hours", val: Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1},
+				{name: "mins", val: Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60)) + 1},
+				{name: "secs", val: Math.floor((secondsDiff % (1000 * 60)) / 1000) + 1}
+			];
 
-        timeObjs = timeObjs.map(function(timeObj) {
-          return {
-            ...timeObj,
-            container: document.getElementById(timeObj.name + "-count-div"),
-            currentSpans: [
-              document.getElementById(timeObj.name + "-current-top"),
-              document.getElementById(timeObj.name + "-current-bottom")
-            ],
-            nextSpans: [
-              document.getElementById(timeObj.name + "-next-top"),
-              document.getElementById(timeObj.name + "-next-bottom")
-            ]
-          }
-        });
+			var newDaysVal = 0;
+			var newHoursVal = 0;
+			var newMinsVal = 0;
+			var newSecsVal = 0;
 
-        console.log(timeObjs);
+			timeObjs = timeObjs.map(function(timeObj) {
+				return {
+					...timeObj,
+					container: document.getElementById(timeObj.name + "-count-div"),
+					currentSpans: [
+						document.getElementById(timeObj.name + "-current-top"),
+						document.getElementById(timeObj.name + "-current-bottom")
+					],
+					nextSpans: [
+						document.getElementById(timeObj.name + "-next-top"),
+						document.getElementById(timeObj.name + "-next-bottom")
+					]
+				}
+			});
 
-        function setupAnimation(timeObj, nextVal) {
-          var currentVal = timeObj.val;
-          for (var i = 0; i < 2; i++) {
-            timeObj.currentSpans[i].textContent = currentVal;
-            timeObj.nextSpans[i].textContent = nextVal;
-            if (currentVal >= 10) {
-              timeObj.currentSpans[i].classList.add('small');
-            } else {
-              timeObj.currentSpans[i].classList.remove('small');
-            }
+			console.log(timeObjs);
 
-            if (nextVal >= 10) {
-              timeObj.nextSpans[i].classList.add('small');
-            } else {
-              timeObj.nextSpans[i].classList.remove('small');
-            }
-          }
+			function setupAnimation(timeObj, nextVal) {
+				var currentVal = timeObj.val;
+				for (var i = 0; i < 2; i++) {
+					timeObj.currentSpans[i].textContent = currentVal;
+					timeObj.nextSpans[i].textContent = nextVal;
+					if (currentVal >= 10) {
+						timeObj.currentSpans[i].classList.add('small');
+					} else {
+						timeObj.currentSpans[i].classList.remove('small');
+					}
 
-          timeObj.container.classList.remove('changed');
-        };
+					if (nextVal >= 10) {
+						timeObj.nextSpans[i].classList.add('small');
+					} else {
+						timeObj.nextSpans[i].classList.remove('small');
+					}
+				}
 
-        function executeAnimation(timeObj) {
-          timeObj.container.classList.add('changing');
-        };
+				timeObj.container.classList.remove('changed');
+			};
 
-        function finishAnimation(timeObj) {
-          timeObj.container.classList.add('changed');
-          timeObj.container.classList.remove('changing');
-        };
+			function executeAnimation(timeObj) {
+				timeObj.container.classList.add('changing');
+			};
 
-        function update(timeObj, newVal) {
-          console.log("Update Call");
-          console.log(timeObj);
-          setupAnimation(timeObj, newVal);
-          setTimeout(function() {
-            executeAnimation(timeObj);
-          }, 20);
-          setTimeout(function() {
-            finishAnimation(timeObj);
-          }, 900);
-        };
+			function finishAnimation(timeObj) {
+				timeObj.container.classList.add('changed');
+				timeObj.container.classList.remove('changing');
+			};
 
-        var x = setInterval(function() {
-          secondsDiff = secondsDiff - 1000;
+			function update(timeObj, newVal) {
+				console.log("Update Call");
+				console.log(timeObj);
+				setupAnimation(timeObj, newVal);
+				setTimeout(function() {
+					executeAnimation(timeObj);
+				}, 20);
+				setTimeout(function() {
+					finishAnimation(timeObj);
+				}, 900);
+			};
 
-          newDaysVal = Math.floor(secondsDiff / (1000 * 60 * 60 * 24));
-          newHoursVal = Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          newMinsVal = Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60));
-          newSecsVal = Math.floor((secondsDiff % (1000 * 60)) / 1000);
+			var x = setInterval(function() {
+				secondsDiff = secondsDiff - 1000;
 
-          daysObj = timeObjs[0];
-          hoursObj = timeObjs[1];
-          minsObj = timeObjs[2];
-          secsObj = timeObjs[3];
+				newDaysVal = Math.floor(secondsDiff / (1000 * 60 * 60 * 24));
+				newHoursVal = Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+				newMinsVal = Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60));
+				newSecsVal = Math.floor((secondsDiff % (1000 * 60)) / 1000);
 
-          if (newDaysVal !== daysObj.val) {
-            update(daysObj, newDaysVal);
-            daysObj.val = newDaysVal;
-          }
+				daysObj = timeObjs[0];
+				hoursObj = timeObjs[1];
+				minsObj = timeObjs[2];
+				secsObj = timeObjs[3];
 
-          if (newHoursVal !== hoursObj.val) {
-            update(hoursObj, newHoursVal);
-            hoursObj.val = newHoursVal;
-          }
+				if (newDaysVal !== daysObj.val) {
+					update(daysObj, newDaysVal);
+					daysObj.val = newDaysVal;
+				}
 
-          if (newMinsVal !== minsObj.val) {
-            update(minsObj, newMinsVal);
-            minsObj.val = newMinsVal;
-          }
+				if (newHoursVal !== hoursObj.val) {
+					update(hoursObj, newHoursVal);
+					hoursObj.val = newHoursVal;
+				}
 
-          update(secsObj, newSecsVal);
-          secsObj.val = newSecsVal;
+				if (newMinsVal !== minsObj.val) {
+					update(minsObj, newMinsVal);
+					minsObj.val = newMinsVal;
+				}
 
-          if (secondsDiff < 0) {
-              clearInterval(x);
-          }
-        }, 1000);
+				update(secsObj, newSecsVal);
+				secsObj.val = newSecsVal;
+
+				if (secondsDiff < 0) {
+						clearInterval(x);
+				}
+			}, 1000);
