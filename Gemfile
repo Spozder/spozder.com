@@ -18,6 +18,7 @@ source "https://rubygems.org"
 gem "sinatra"
 gem "slim"
 gem "compass"
+gem "google-cloud-storage"
 # [END gae_flex_quickstart_dependencies]
 
 group :test do

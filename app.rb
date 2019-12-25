@@ -16,6 +16,7 @@
 require "sinatra"
 require 'sass'
 require 'compass'
+#require "google/cloud/storage"
 
 configure do
   Compass.configuration do |config|
@@ -26,11 +27,29 @@ configure do
   set :sass, Compass.sass_engine_options
 end
 
+# Google cloud storage stuff
+#PROJECT_ID = "spozderwebsite"
+#BUCKET_NAME = "spozderwebsite"
+
+#storage = Google::Cloud::Storage.new(project_id: PROJECT_ID)
+#bucket = storage.bucket(BUCKET_NAME)
+
+# TODO: When on laptop again
+#bucket.files.each do |file|
+#	puts file.name	
+#end	
+
 get "/" do
   "Hello world!"
 end
 
+get "/countdown/ranch" do
+	@countdown_to = "Jan 5, 2020 23:00:00"
+	slim :countdown
+end
+
 get "/countdown" do
+	@countdown_to = params[:date] || "Jan 5, 2020 23:00:00"	
   slim :countdown
 end
 

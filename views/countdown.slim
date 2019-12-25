@@ -46,9 +46,26 @@ html
         span id="secs-next-bottom" class="next bottom"
         br
         h2 Seconds
+    #orientation
+    
+    javascript:
+     var oElement = document.getElementById("orientation");
+     if (window.innerWidth > window.innerHeight) {
+      oElement.textContent = "Horizontal";
+     } else {
+      oElement.textContent = "Vertical";
+     }
+     
+     window.addEventListener("orientationchange", function() {
+      if (window.orientation === 90) {
+      	oElement.textContent = "Horizontal";
+      } else {
+       oElement.textContent = "Vertical";
+      }
+     }, false);
 
     javascript:
-        var countdownDate = new Date("Jan 5, 2020 23:00:00").getTime();
+        var countdownDate = new Date("#{@countdown_to}").getTime();
 
         var secondsDiff = countdownDate - (new Date().getTime());
 
