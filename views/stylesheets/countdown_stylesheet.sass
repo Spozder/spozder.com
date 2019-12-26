@@ -1,4 +1,5 @@
 @import compass
+@import "compass/css3/filter"
 
 // Countdown Global Variables
 $duration: 0.35s
@@ -7,159 +8,183 @@ $bounce: cubic-bezier(0.375, 1.495, 0.610, 0.780)
 $cardBackground: #202020
 $cardTextColor: #f8f8f8
 
-$cardTextSize: 9vw
+$cardTextSize: 11vw
 
-$height: 15vw
-$width: 10vw
+$height: 18vw
+$width: 12vw
 $margin: 3vw
 
 $centerLineThickness: 2px
 
 $cardBorderRadius: 10px
 
+$animationDelay: 1
+@keyframes fade-in
+	0%
+		opacity: 0
+	100%
+		opacity: 1
+
+#background
+	height: 100%
+	+filter(blur(1px))
+	background-position: center
+	background-repeat: no-repeat
+	background-size: cover
+
 h2
-    font-size: $cardTextSize * 0.25
+	font-size: $cardTextSize * 0.25
+	color: $cardTextColor
 
 #content
-    top: 50%
-    position: absolute
-    width: 100%
-    text-align: center
-    +translateY(-50%)
+	top: 50%
+	position: absolute
+	width: 100%
+	text-align: center
+	+translateY(-50%)
+
+	@for $i from 1 through 4
+		span:nth-of-type(#{$i})
+			animation-delay: #{0.3 + $i * (1 / 2)}s
+			-webkit-animation-delay: #{0.3 + $i * (1 / 2)}s
 
 // Count Container
 .count
-    box-shadow: 0 10px 5px -5px rgba(#000, 0.2)
-    height: $height
-    line-height: $height
-    +perspective(500px)
-    text-align: center
-    +translateZ(0)
-    width: $width
-    display: inline-block
-    margin: 0 $margin
+	box-shadow: 0 10px 5px -5px rgba(#000, 0.2)
+	height: $height
+	line-height: $height
+	+perspective(500px)
+	text-align: center
+	+translateZ(0)
+	width: $width
+	display: inline-block
+	margin: 0 $margin
 
-    // The actual card
-    span
-        background: $cardBackground
-        color: $cardTextColor
-        display: block
-        font-size: $cardTextSize
-        left: 0
-        top: 0
-        position: absolute
-        text-shadow: 0 1px 0 (#000 + 40), 0 2px 0 (#000 + 30), 0 3px 0 (#000 + 20), 0 4px 0 (#000 + 10), 0 5px 0 #000, 0 0 10px rgba(#000, 0.8)
-        +transform-origin(0, $height / 2, 0)
-        width: 100%
+	animation-name: fade-in
+	animation-fill-mode: both
+	animation-duration: 1s
 
-        // Center line
-        &:before
-            border-bottom: $centerLineThickness solid #000
-            content: ''
-            left: 0
-            position: absolute
-            width: 100%
+	// The actual card
+	span
+		background: $cardBackground
+		color: $cardTextColor
+		display: block
+		font-size: $cardTextSize
+		left: 0
+		top: 0
+		position: absolute
+		text-shadow: 0 1px 0 (#000 + 40), 0 2px 0 (#000 + 30), 0 3px 0 (#000 + 20), 0 4px 0 (#000 + 10), 0 5px 0 #000, 0 0 10px rgba(#000, 0.8)
+		+transform-origin(0, $height / 2, 0)
+		width: 100%
 
-        // Shadow fill to make card 3D
-        &:after
-            box-shadow: inset 0 0 60px rgba(#000, 0.35)
-            content: ''
-            height: 100%
-            left: 0
-            position: absolute
-            top: 0
-            width: 100%
+		// Center line
+		&:before
+			border-bottom: $centerLineThickness solid #000
+			content: ''
+			left: 0
+			position: absolute
+			width: 100%
 
-    // For 2-digit numbers
-    .small
-        font-size: $cardTextSize
+		// Shadow fill to make card 3D
+		&:after
+			box-shadow: inset 0 0 60px rgba(#000, 0.35)
+			content: ''
+			height: 100%
+			left: 0
+			position: absolute
+			top: 0
+			width: 100%
 
-    // Top (visible) card
-    .top
-        border-top-left-radius: $cardBorderRadius + 1px
-        border-top-right-radius: $cardBorderRadius + 1px
+	// For 2-digit numbers
+	.small
+		font-size: $cardTextSize
 
-        // Shine at the top of the card
-        box-shadow: inset 0 2px rgba(#000, 0.9), inset 0 3px 0 rgba(#fff, 0.4)
+	// Top (visible) card
+	.top
+		border-top-left-radius: $cardBorderRadius + 1px
+		border-top-right-radius: $cardBorderRadius + 1px
 
-        // Only half the size of the full card
-        height: 50%
-        overflow: hidden
+		// Shine at the top of the card
+		box-shadow: inset 0 2px rgba(#000, 0.9), inset 0 3px 0 rgba(#fff, 0.4)
 
-        &:before
-            bottom: 0
+		// Only half the size of the full card
+		height: 50%
+		overflow: hidden
 
-        // Shadow effect on card as it flips
-        &:after
-            +background(linear-gradient(rgba(#000, 0), rgba(#000, 0.15)))
-            border-top-left-radius: $cardBorderRadius + 1px
-            border-top-right-radius: $cardBorderRadius + 1px
+		&:before
+			bottom: 0
 
-    // The full card hidden under the top card
-    .bottom
-        border-radius: $cardBorderRadius
-        height: 100%
+		// Shadow effect on card as it flips
+		&:after
+			+background(linear-gradient(rgba(#000, 0), rgba(#000, 0.15)))
+			border-top-left-radius: $cardBorderRadius + 1px
+			border-top-right-radius: $cardBorderRadius + 1px
 
-        &:before
-            top: 50%
+	// The full card hidden under the top card
+	.bottom
+		border-radius: $cardBorderRadius
+		height: 100%
 
-        &:after
-            border-radius: $cardBorderRadius
-            +background(linear-gradient(rgba(#fff, 0.1), rgba(#fff, 0.1) 50%, rgba(#fff, 0)))
+		&:before
+			top: 50%
 
-    // When counting down
-    &.down
-        .top
-            border-top-left-radius: $cardBorderRadius + 1px
-            border-top-right-radius: $cardBorderRadius + 1px
-            height: 50%
+		&:after
+			border-radius: $cardBorderRadius
+			+background(linear-gradient(rgba(#fff, 0.1), rgba(#fff, 0.1) 50%, rgba(#fff, 0)))
 
-            &.current
-                +transform-style(flat)
-                z-index: 3
+	// When counting down
+	&.down
+		.top
+			border-top-left-radius: $cardBorderRadius + 1px
+			border-top-right-radius: $cardBorderRadius + 1px
+			height: 50%
 
-            &.next
-                // When counting down, the top card is rotated towards the viewer
-                +transform(rotate3d(1, 0, 0, -90deg))
-                z-index: 4
+			&.current
+				+transform-style(flat)
+				z-index: 3
 
-        .bottom
-            border-radius: $cardBorderRadius
+			&.next
+				// When counting down, the top card is rotated towards the viewer
+				+transform(rotate3d(1, 0, 0, -90deg))
+				z-index: 4
 
-            &.current
-                z-index: 2
+		.bottom
+			border-radius: $cardBorderRadius
 
-            &.next
-                z-index: 1
+			&.current
+				z-index: 2
 
-        &.changing
-            .bottom.current
-                box-shadow: 0 75px 5px -20px rgba(#000, 0.3)
-                +transform(rotate3d(1, 0, 0, 90deg))
+			&.next
+				z-index: 1
 
-                +transition(transform $duration ease-in, box-shadow $duration ease-in)
+		&.changing
+			.bottom.current
+				box-shadow: 0 75px 5px -20px rgba(#000, 0.3)
+				+transform(rotate3d(1, 0, 0, 90deg))
 
-        &.changing,
-        &.changed
-            .top.next
-                +transition(transform $duration ease-out $duration)
-                +transform(none)
+				+transition(transform $duration ease-in, box-shadow $duration ease-in)
 
-    &.changed
-        .top.current,
-        .bottom.current
-            display: none
+		&.changing,
+		&.changed
+			.top.next
+				+transition(transform $duration ease-out $duration)
+				+transform(none)
+
+	&.changed
+		.top.current,
+		.bottom.current
+			display: none
 
 // Font
 @import url(https://fonts.googleapis.com/css?family=Oswald)
 
 html,
 body
-    height: 100%
-    width: 100%
+	height: 100%
+	width: 100%
 
 body
-    //background: #202020 url(https://cl.ly/image/040I101f1i0I/planes.jpg) 50% 50% // TODO replace image with fun images
-    background-origin: 50% 50%
-    +background-size(cover)
-    font-family: 'Oswald'
+	//background: #202020 url(https://cl.ly/image/040I101f1i0I/planes.jpg) 50% 50% // TODO replace image with fun images
+	background-origin: 50% 50%
+	+background-size(cover)
+	font-family: 'Oswald'

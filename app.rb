@@ -16,7 +16,7 @@
 require "sinatra"
 require 'sass'
 require 'compass'
-#require "google/cloud/storage"
+require "google/cloud/storage"
 
 configure do
   Compass.configuration do |config|
@@ -28,19 +28,30 @@ configure do
 end
 
 # Google cloud storage stuff
-#PROJECT_ID = "spozderwebsite"
-#BUCKET_NAME = "spozderwebsite"
+PROJECT_ID = "spozderwebsite"
+BUCKET_NAME = "spozderwebsite"
 
-#storage = Google::Cloud::Storage.new(project_id: PROJECT_ID)
-#bucket = storage.bucket(BUCKET_NAME)
+storage = Google::Cloud::Storage.new(project_id: PROJECT_ID)
+bucket = storage.bucket(BUCKET_NAME)
 
-# TODO: When on laptop again
-#bucket.files.each do |file|
-#	puts file.name	
-#end	
+all_backgrounds = bucket.files
+
+background_hash = {
+  rachel_v: all_backgrounds.select { |f| f.name.include?("/vert") },
+  rachel_h: all_backgrounds.select { |f| f.name.include?("/horiz") }
+}
+
+# f.public_url
 
 get "/" do
   "Hello world!"
+end
+
+before do
+  @background_images = {
+    v: background_hash[:rachel_v].sample.public_url,
+    h: background_hash[:rachel_h].sample.public_url
+  }
 end
 
 get "/countdown/ranch" do

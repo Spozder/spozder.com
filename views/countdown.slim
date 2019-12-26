@@ -14,7 +14,7 @@ html
 
 
 	body
-		h1 Reunion Countdown
+		#background
 
 		#content
 			span id="days-count-div" class="days count down"
@@ -46,23 +46,25 @@ html
 				br
 				h2 Seconds
 		#orientation
-
-		javascript:
-			console.log()
 		
 		javascript:
 			var oElement = document.getElementById("orientation");
+			var bgElement = document.getElementById("background");
 			if (window.innerWidth > window.innerHeight) {
 				oElement.textContent = "Horizontal";
+				bgElement.style.backgroundImage = "url(#{@background_images[:h]})";
 			} else {
 				oElement.textContent = "Vertical";
+				bgElement.style.backgroundImage = "url(#{@background_images[:v]})";
 			}
 			
 			window.addEventListener("orientationchange", function() {
 			if (window.orientation === 90) {
 				oElement.textContent = "Horizontal";
+				bgElement.style.backgroundImage = "url(#{@background_images[:h]})";
 			} else {
 				oElement.textContent = "Vertical";
+				bgElement.style.backgroundImage = "url(#{@background_images[:v]})";
 			}
 			}, false);
 
