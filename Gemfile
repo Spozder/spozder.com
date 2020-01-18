@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# [START gae_flex_quickstart_dependencies]
+# [START gae_standard_quickstart_dependencies]
 source "https://rubygems.org"
 
 gem "sinatra"
 gem "slim"
 gem "compass"
 gem "google-cloud-storage"
-# [END gae_flex_quickstart_dependencies]
+# [END gae_standard_quickstart_dependencies]
 
 group :test do
   gem "rack-test"

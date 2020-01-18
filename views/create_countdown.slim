@@ -1,0 +1,51 @@
+doctype html
+html
+    head
+        title Countdown Creator
+        == slim :"partials/global_header"
+        link rel="stylesheet" href="/style/main"
+        script src="https://momentjs.com/downloads/moment.min.js" crossorigin="anonymous"
+        script src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/js/tempusdominus-bootstrap-4.min.js" crossorigin="anonymous"
+        link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha14/css/tempusdominus-bootstrap-4.min.css"
+        script src="https://kit.fontawesome.com/a5356c2633.js" crossorigin="anonymous"
+
+
+    body class="text-center"
+        div class="cover-container d-flex h-100 p-3 mx-auto flex-column"
+            == slim :"partials/global_nav", locals: {pageindex: 1}
+            main role="main" class="inner cover"
+                form id="makeCountdownForm" onsubmit="return submitForm()"
+                    .form-row
+                        label for="inputMessage" class="col-sm-4 col-form-label" Countdown Message
+                        div class="form-group col-sm-8"
+                            input id="inputMessage" type="text" name="message" class="form-control" placeholder="Message to display when countdown ends :)"
+                    .form-row
+                        label for="inputDatetime" class="col-sm-4 col-form-label" Date and Time
+                        div class="form-group col-sm-8"
+                            div class="input-group date" id="datetimepicker1" data-target-input="nearest"
+                                input id="inputDatetime" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="datetime"
+                                div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                                    div class="input-group-text"
+                                        i class="fa fa-calendar"
+                    div class="form-row justify-content-center"
+                        input type="submit" value="Submit" class="btn btn-primary m-1"
+                        input type="reset" class="btn btn-secondary m-1"
+
+            == slim :"partials/global_footer"
+        javascript:
+            $(function () {
+                const dtpicker = $('#datetimepicker1').datetimepicker({
+                    defaultDate: new Date()
+                });
+            });
+
+        javascript:
+            function submitForm() {
+                const message = $("#inputMessage").val();
+                console.log($("#inputMessage").val());
+                const datetimeMomentString = moment($("#inputDatetime").val()).format();
+                console.log(datetimeMomentString);
+                window.location.href = window.location.href + "?message=" + encodeURIComponent(message) + "&datetime=" + encodeURIComponent(datetimeMomentString);
+
+                return false;
+            }

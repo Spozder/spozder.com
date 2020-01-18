@@ -1,0 +1,14 @@
+doctype html
+html
+    head
+        title Spozder
+        == slim :"partials/global_header"
+        link rel="stylesheet" href="/style/main"
+
+    body class="text-center"
+        div class="cover-container d-flex h-100 p-3 mx-auto flex-column"
+            == slim :"partials/global_nav", locals: {pageindex: 3}
+            main role="main" class="inner cover"
+                h1 class="cover-heading" Welcome to my site :)
+                p class="lead" I am a software developer in the Boston area looking for work in New York City following my graduation in May 2020. Feel free to reach out for more information!
+            == slim :"partials/global_footer"

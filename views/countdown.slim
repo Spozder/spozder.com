@@ -1,17 +1,9 @@
 doctype html
 html
 	head
-		title Reunion Countdown
-		meta name="author" content="Spencer Pozder"
-		meta charset="utf-8"
-		meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
-		link rel="icon" type="image/png" href="icons8-home-48.png"
-		link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
+		title Custom Countdown
+		== slim :"partials/global_header"
 		link rel="stylesheet" href="/style/countdown"
-		script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"
-		script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"
-		script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"
-
 
 	body
 		#background
@@ -45,137 +37,178 @@ html
 				span id="secs-next-bottom" class="next bottom"
 				br
 				h2 Seconds
-		#orientation
+
+		#sharebutton
+			button id="share-button" class="btn btn-dark btn-lg" Share
+
+		javascript:
+			function webshareFallback() {
+				if (navigator.clipboard) {
+					// Copy webpage link to clipboard
+					navigator.clipboard.writeText(window.location.href).then(() => {
+						alert("Page url copied to clipboard");
+					});
+				} else {
+					alert("Sharing not yet available on your device");
+				}
+			}
+
+			document.getElementById("share-button").addEventListener('click', event => {
+				if ('share' in navigator) {
+					// Mobile share navigator
+					navigator.share({
+						title: 'Custom Countdown',
+						url: window.location.href
+					}).then(() => {
+						console.log("Shared!");
+					}).catch(error => {
+						console.error(error);
+						webshareFallback();
+					});
+				} else {
+					webshareFallback();
+				}
+			});
 		
 		javascript:
-			var oElement = document.getElementById("orientation");
 			var bgElement = document.getElementById("background");
+			bgElement.style.backgroundSize = "#{@background_style}";
+			console.log(bgElement.style);
 			if (window.innerWidth > window.innerHeight) {
-				oElement.textContent = "Horizontal";
 				bgElement.style.backgroundImage = "url(#{@background_images[:h]})";
 			} else {
-				oElement.textContent = "Vertical";
 				bgElement.style.backgroundImage = "url(#{@background_images[:v]})";
 			}
 			
 			window.addEventListener("orientationchange", function() {
 			if (window.orientation === 90) {
-				oElement.textContent = "Horizontal";
 				bgElement.style.backgroundImage = "url(#{@background_images[:h]})";
 			} else {
-				oElement.textContent = "Vertical";
 				bgElement.style.backgroundImage = "url(#{@background_images[:v]})";
 			}
 			}, false);
 
 		javascript:
-			var countdownDate = new Date("#{@countdown_to}").getTime();
+			function endCountdown() {
+				document.getElementById("content").innerHTML = "<h1>#{@message}</h1>";
+			}
 
-			var secondsDiff = countdownDate - (new Date().getTime());
+			function main() {
+				var countdownDate = new Date("#{@countdown_to}").getTime();
+				console.log(new Date("#{@countdown_to}"));
 
-			var timeObjs = [
-				{name: "days", val: Math.floor(secondsDiff / (1000 * 60 * 60 * 24)) + 1},
-				{name: "hours", val: Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1},
-				{name: "mins", val: Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60)) + 1},
-				{name: "secs", val: Math.floor((secondsDiff % (1000 * 60)) / 1000) + 1}
-			];
-
-			var newDaysVal = 0;
-			var newHoursVal = 0;
-			var newMinsVal = 0;
-			var newSecsVal = 0;
-
-			timeObjs = timeObjs.map(function(timeObj) {
-				return {
-					...timeObj,
-					container: document.getElementById(timeObj.name + "-count-div"),
-					currentSpans: [
-						document.getElementById(timeObj.name + "-current-top"),
-						document.getElementById(timeObj.name + "-current-bottom")
-					],
-					nextSpans: [
-						document.getElementById(timeObj.name + "-next-top"),
-						document.getElementById(timeObj.name + "-next-bottom")
-					]
-				}
-			});
-
-			console.log(timeObjs);
-
-			function setupAnimation(timeObj, nextVal) {
-				var currentVal = timeObj.val;
-				for (var i = 0; i < 2; i++) {
-					timeObj.currentSpans[i].textContent = currentVal;
-					timeObj.nextSpans[i].textContent = nextVal;
-					if (currentVal >= 10) {
-						timeObj.currentSpans[i].classList.add('small');
-					} else {
-						timeObj.currentSpans[i].classList.remove('small');
-					}
-
-					if (nextVal >= 10) {
-						timeObj.nextSpans[i].classList.add('small');
-					} else {
-						timeObj.nextSpans[i].classList.remove('small');
-					}
-				}
-
-				timeObj.container.classList.remove('changed');
-			};
-
-			function executeAnimation(timeObj) {
-				timeObj.container.classList.add('changing');
-			};
-
-			function finishAnimation(timeObj) {
-				timeObj.container.classList.add('changed');
-				timeObj.container.classList.remove('changing');
-			};
-
-			function update(timeObj, newVal) {
-				console.log("Update Call");
-				console.log(timeObj);
-				setupAnimation(timeObj, newVal);
-				setTimeout(function() {
-					executeAnimation(timeObj);
-				}, 20);
-				setTimeout(function() {
-					finishAnimation(timeObj);
-				}, 900);
-			};
-
-			var x = setInterval(function() {
-				secondsDiff = secondsDiff - 1000;
-
-				newDaysVal = Math.floor(secondsDiff / (1000 * 60 * 60 * 24));
-				newHoursVal = Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-				newMinsVal = Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60));
-				newSecsVal = Math.floor((secondsDiff % (1000 * 60)) / 1000);
-
-				daysObj = timeObjs[0];
-				hoursObj = timeObjs[1];
-				minsObj = timeObjs[2];
-				secsObj = timeObjs[3];
-
-				if (newDaysVal !== daysObj.val) {
-					update(daysObj, newDaysVal);
-					daysObj.val = newDaysVal;
-				}
-
-				if (newHoursVal !== hoursObj.val) {
-					update(hoursObj, newHoursVal);
-					hoursObj.val = newHoursVal;
-				}
-
-				if (newMinsVal !== minsObj.val) {
-					update(minsObj, newMinsVal);
-					minsObj.val = newMinsVal;
-				}
-
-				update(secsObj, newSecsVal);
-				secsObj.val = newSecsVal;
-
+				var secondsDiff = countdownDate - (new Date().getTime());
 				if (secondsDiff < 0) {
-						clearInterval(x);
+					endCountdown();
+					return;
 				}
-			}, 1000);
+
+				var timeObjs = [
+					{name: "days", val: Math.floor(secondsDiff / (1000 * 60 * 60 * 24)) + 1},
+					{name: "hours", val: Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 1},
+					{name: "mins", val: Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60)) + 1},
+					{name: "secs", val: Math.floor((secondsDiff % (1000 * 60)) / 1000) + 1}
+				];
+
+				var newDaysVal = 0;
+				var newHoursVal = 0;
+				var newMinsVal = 0;
+				var newSecsVal = 0;
+
+				timeObjs = timeObjs.map(function(timeObj) {
+					return {
+						...timeObj,
+						container: document.getElementById(timeObj.name + "-count-div"),
+						currentSpans: [
+							document.getElementById(timeObj.name + "-current-top"),
+							document.getElementById(timeObj.name + "-current-bottom")
+						],
+						nextSpans: [
+							document.getElementById(timeObj.name + "-next-top"),
+							document.getElementById(timeObj.name + "-next-bottom")
+						]
+					}
+				});
+
+				function setupAnimation(timeObj, nextVal) {
+					var currentVal = timeObj.val;
+					for (var i = 0; i < 2; i++) {
+						timeObj.currentSpans[i].textContent = currentVal;
+						timeObj.nextSpans[i].textContent = nextVal;
+						if (currentVal >= 10) {
+							timeObj.currentSpans[i].classList.add('small');
+						} else {
+							timeObj.currentSpans[i].classList.remove('small');
+						}
+
+						if (nextVal >= 10) {
+							timeObj.nextSpans[i].classList.add('small');
+						} else {
+							timeObj.nextSpans[i].classList.remove('small');
+						}
+					}
+
+					timeObj.container.classList.remove('changed');
+				};
+
+				function executeAnimation(timeObj) {
+					timeObj.container.classList.add('changing');
+				};
+
+				function finishAnimation(timeObj) {
+					timeObj.container.classList.add('changed');
+					timeObj.container.classList.remove('changing');
+				};
+
+				function update(timeObj, newVal) {
+					setupAnimation(timeObj, newVal);
+					setTimeout(function() {
+						executeAnimation(timeObj);
+					}, 20);
+					setTimeout(function() {
+						finishAnimation(timeObj);
+					}, 900);
+				};
+
+				var x = setInterval(function() {
+					secondsDiff = countdownDate - (new Date().getTime());
+					if (secondsDiff < 0) {
+						endCountdown();
+						return;
+					}
+
+					newDaysVal = Math.floor(secondsDiff / (1000 * 60 * 60 * 24));
+					newHoursVal = Math.floor((secondsDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					newMinsVal = Math.floor((secondsDiff % (1000 * 60 * 60)) / (1000 * 60));
+					newSecsVal = Math.floor((secondsDiff % (1000 * 60)) / 1000);
+
+					daysObj = timeObjs[0];
+					hoursObj = timeObjs[1];
+					minsObj = timeObjs[2];
+					secsObj = timeObjs[3];
+
+					if (newDaysVal !== daysObj.val) {
+						update(daysObj, newDaysVal);
+						daysObj.val = newDaysVal;
+					}
+
+					if (newHoursVal !== hoursObj.val) {
+						update(hoursObj, newHoursVal);
+						hoursObj.val = newHoursVal;
+					}
+
+					if (newMinsVal !== minsObj.val) {
+						update(minsObj, newMinsVal);
+						minsObj.val = newMinsVal;
+					}
+
+					update(secsObj, newSecsVal);
+					secsObj.val = newSecsVal;
+
+					if (secondsDiff < 0) {
+							clearInterval(x);
+					}
+				}, 1000);
+			}
+
+			main();

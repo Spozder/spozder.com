@@ -5,7 +5,7 @@
 $duration: 0.35s
 $bounce: cubic-bezier(0.375, 1.495, 0.610, 0.780)
 
-$cardBackground: #202020
+$cardBackground: #333
 $cardTextColor: #f8f8f8
 
 $cardTextSize: 11vw
@@ -14,7 +14,7 @@ $height: 18vw
 $width: 12vw
 $margin: 3vw
 
-$centerLineThickness: 2px
+$centerLineThickness: 1px
 
 $cardBorderRadius: 10px
 
@@ -25,16 +25,31 @@ $animationDelay: 1
 	100%
 		opacity: 1
 
+body
+	background-color: #302a2e
+
 #background
 	height: 100%
 	+filter(blur(1px))
 	background-position: center
 	background-repeat: no-repeat
-	background-size: cover
 
 h2
 	font-size: $cardTextSize * 0.25
 	color: $cardTextColor
+
+#sharebutton
+	position: absolute
+	top: 80%
+	width: 100%
+	text-align: center
+	button
+		text-align: center
+		animation-delay: 2.8s
+		-webkit-animation-delay: 2.8s
+		animation-name: fade-in
+		animation-fill-mode: both
+		animation-duration: 1s
 
 #content
 	top: 50%
@@ -47,6 +62,10 @@ h2
 		span:nth-of-type(#{$i})
 			animation-delay: #{0.3 + $i * (1 / 2)}s
 			-webkit-animation-delay: #{0.3 + $i * (1 / 2)}s
+
+	h1
+		font-size: $cardTextSize
+		color: $cardTextColor
 
 // Count Container
 .count
