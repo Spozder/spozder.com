@@ -17,6 +17,7 @@ require "sinatra"
 require 'sass'
 require 'compass'
 require "google/cloud/storage"
+require "browser"
 
 configure do
   Compass.configuration do |config|
@@ -88,6 +89,7 @@ get "/countdown" do
     end
     slim :countdown
   else
+    @mobile = Browser.new(request.user_agent, accept_language: request.env["HTTP_ACCEPT_LANGUAGE"]).device.mobile?
     slim :create_countdown
   end
 end

@@ -22,11 +22,14 @@ html
                     .form-row
                         label for="inputDatetime" class="col-sm-4 col-form-label" Date and Time
                         div class="form-group col-sm-8"
-                            div class="input-group date" id="datetimepicker1" data-target-input="nearest"
-                                input id="inputDatetime" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="datetime"
-                                div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
-                                    div class="input-group-text"
-                                        i class="fa fa-calendar"
+                            - if @mobile
+                                input id="inputDatetime" type="datetime-local" class="form-control" name="datetime"
+                            - else
+                                div class="input-group date" id="datetimepicker1" data-target-input="nearest"
+                                    input id="inputDatetime" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1" name="datetime"
+                                    div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker"
+                                        div class="input-group-text"
+                                            i class="fa fa-calendar"
                     div class="form-row justify-content-center"
                         input type="submit" value="Submit" class="btn btn-primary m-1"
                         input type="reset" class="btn btn-secondary m-1"

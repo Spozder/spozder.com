@@ -19,6 +19,7 @@ gem "sinatra"
 gem "slim"
 gem "compass"
 gem "google-cloud-storage"
+gem "browser"
 # [END gae_standard_quickstart_dependencies]
 
 group :test do
