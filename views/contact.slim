@@ -4,11 +4,28 @@ html
         title Spozder
         == slim :"partials/global_header"
         link rel="stylesheet" href="/style/main"
+        script src="https://kit.fontawesome.com/a5356c2633.js" crossorigin="anonymous"
 
     body class="text-center"
         div class="cover-container d-flex h-100 p-3 mx-auto flex-column"
             == slim :"partials/global_nav", locals: {pageindex: 3}
             main role="main" class="inner cover"
-                h1 class="cover-heading" Welcome to my site :)
-                p class="lead" I am a software developer in the Boston area looking for work in New York City following my graduation in May 2020. Feel free to reach out for more information!
+                .row style="font-size: 18px"
+                    .col-sm
+                        a href="mailto:spencer.pozder@gmail.com"
+                            i class="fas fa-envelope fa-2x"
+                            p spencer.pozder@gmail.com
+                    .col-sm
+                        a href="https://github.com/spozder"
+                            img src="https://storage.googleapis.com/spozderwebsite/static/GitHub_Logo.png" height="36px"
+                            p GitHub.com/Spozder
+                    .col-sm
+                        a href="https://linkedin.com/in/spozder"
+                            img src="https://storage.googleapis.com/spozderwebsite/static/LI-Logo.png" height="36px"
+                            p LinkedIn.com/in/Spozder
+                    .col-sm
+                        i class="fas fa-phone fa-2x"
+                        p
+                            | (303) 898-9835
+                        
             == slim :"partials/global_footer"
