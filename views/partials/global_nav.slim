@@ -4,5 +4,8 @@ header class="masthead mb-auto"
         nav class="nav nav-masthead justify-content-center"
             a class=(pageindex == 0 ? "nav-link active" : "nav-link") href="/" Home
             a class=(pageindex == 1 ? "nav-link active" : "nav-link") href="/projects" Projects
-            a class=(pageindex == 2 ? "nav-link active" : "nav-link") href="/resume" Resume
+            - if @mobile
+                a class="nav-link" target="_blank" href="https://storage.googleapis.com/spozderwebsite/static/SpencerPozder.pdf" Resume
+            - else
+                a class=(pageindex == 2 ? "nav-link active" : "nav-link") href="/resume" Resume
             a class=(pageindex == 3 ? "nav-link active" : "nav-link") href="/contact" Contact

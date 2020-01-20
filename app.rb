@@ -46,6 +46,10 @@ background_hash = {
   h: all_backgrounds.select { |f| f.name.include?("/horiz/") }
 }
 
+before do
+  @mobile = Browser.new(request.user_agent, accept_language: request.env["HTTP_ACCEPT_LANGUAGE"]).device.mobile?
+end
+
 get "/" do
   slim :home
 end
@@ -62,7 +66,7 @@ get "/contact" do
   slim :contact
 end
 
-before do
+before "/countdown*" do
   @background_images = {
     v: background_hash[:v].sample.public_url,
     h: background_hash[:h].sample.public_url
@@ -89,7 +93,6 @@ get "/countdown" do
     end
     slim :countdown
   else
-    @mobile = Browser.new(request.user_agent, accept_language: request.env["HTTP_ACCEPT_LANGUAGE"]).device.mobile?
     slim :create_countdown
   end
 end
